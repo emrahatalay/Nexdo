@@ -5,14 +5,17 @@ import SwiftData
 @MainActor
 @Observable
 final class HistoryViewModel {
-    struct SessionRecord: Identifiable {
+    struct SessionRecord: Identifiable, Equatable {
         let id: UUID
+        let taskID: UUID?
         let taskTitle: String
         let estimatedMinutes: Int
         let actualMinutes: Int
+        let state: FocusSessionState
+        let canRestore: Bool
     }
 
-    struct DaySummary: Identifiable {
+    struct DaySummary: Identifiable, Equatable {
         let date: Date
         let completedSessions: [SessionRecord]
         let stoppedSessions: [SessionRecord]
@@ -29,6 +32,7 @@ final class HistoryViewModel {
 
     private(set) var estimationInsight = EstimationInsight(sampleSize: 0, averageRatio: 0)
     private(set) var days: [DaySummary] = []
+    var errorMessage: String?
 
     init(modelContext: ModelContext) {
         self.modelContext = modelContext
@@ -73,12 +77,40 @@ final class HistoryViewModel {
         }
     }
 
+    func restoreToInbox(_ record: SessionRecord) {
+        guard record.canRestore, let taskID = record.taskID else { return }
+        let tasks = (try? modelContext.fetch(FetchDescriptor<TaskItem>())) ?? []
+        guard let task = tasks.first(where: { $0.id == taskID }) else { return }
+
+        task.status = .inbox
+        task.eisenhowerQuadrant = .unset
+        task.plannedDate = nil
+        task.scheduledStart = nil
+        task.scheduledEnd = nil
+        task.startedAt = nil
+        task.completedAt = nil
+        task.sortOrder = 0
+        task.updatedAt = .now
+
+        do {
+            try modelContext.save()
+            refresh()
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+    }
+
     private static func record(_ session: FocusSession) -> SessionRecord {
         SessionRecord(
             id: session.id,
+            taskID: session.task?.id,
             taskTitle: session.task?.title ?? "Silinmiş görev",
             estimatedMinutes: Int(session.plannedDuration / 60),
-            actualMinutes: Int(session.elapsedTime(at: session.endedAt ?? .now) / 60)
+            actualMinutes: Int(session.elapsedTime(at: session.endedAt ?? .now) / 60),
+            state: session.state,
+            canRestore: session.task.map {
+                $0.status == .completed || $0.status == .stopped || $0.status == .cancelled
+            } ?? false
         )
     }
 }
