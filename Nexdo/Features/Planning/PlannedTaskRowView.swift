@@ -1,3 +1,4 @@
+import Foundation
 import SwiftUI
 
 /// Madde 8 Step 4-5: timebox seçimi (preset + özel) ve ilk hareket.
@@ -120,6 +121,8 @@ struct PlannedTaskRowView: View {
 
     private var startTime: String {
         guard let scheduledStart = task.scheduledStart else { return "Saat bekleniyor" }
-        return scheduledStart.formatted(date: .omitted, time: .shortened)
+        return scheduledStart.formatted(
+            .dateTime.hour().minute().locale(Locale(identifier: "tr_TR"))
+        )
     }
 }

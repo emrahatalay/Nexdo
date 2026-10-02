@@ -1,0 +1,924 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "" : {
+
+    },
+    "%@ aktif" : {
+
+    },
+    "%@ seçenekleri" : {
+
+    },
+    "%@–%@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@–%2$@"
+          }
+        }
+      }
+    },
+    "%@, %lld dakika odak" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@, %2$lld dakika odak"
+          }
+        }
+      }
+    },
+    "%%%lld tamamlandı" : {
+
+    },
+    "%lld" : {
+
+    },
+    "%lld / %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld / %2$lld"
+          }
+        }
+      }
+    },
+    "%lld aktif rutin • %lld dk bugün" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld aktif rutin • %2$lld dk bugün"
+          }
+        }
+      }
+    },
+    "%lld dakika" : {
+
+    },
+    "%lld dakika planlandı" : {
+
+    },
+    "%lld dk" : {
+
+    },
+    "%lld dk gerçek" : {
+
+    },
+    "%lld dk odak • %lld tamamlanan" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld dk odak • %2$lld tamamlanan"
+          }
+        }
+      }
+    },
+    "%lld dk plan" : {
+
+    },
+    "%lld iş seçildi. Odaktaki iş dışındakileri plandan çıkarabilirsin." : {
+
+    },
+    "%lld iş, rutinler ve tampon süreyle birlikte planlandı." : {
+
+    },
+    "%lld rutin • %lld dk" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld rutin • %2$lld dk"
+          }
+        }
+      }
+    },
+    "%lld rutinden %lld tanesi tamamlandı" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld rutinden %2$lld tanesi tamamlandı"
+          }
+        }
+      }
+    },
+    "%lld tamamlanmış iş üzerinden hesaplandı." : {
+
+    },
+    "%lld/%lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld/%2$lld"
+          }
+        }
+      }
+    },
+    "+15 Dakika" : {
+
+    },
+    "00:00" : {
+
+    },
+    "Acil mi?" : {
+
+    },
+    "Aklındaki işi yaz" : {
+
+    },
+    "Aklından çıkar, sisteme bırak" : {
+
+    },
+    "Akşam" : {
+
+    },
+    "Akşam önem ve aciliyeti seç" : {
+
+    },
+    "Akşam Planı" : {
+
+    },
+    "Akşam Planına Geç" : {
+
+    },
+    "Aktif" : {
+
+    },
+    "Aktif bir odak oturumu yok" : {
+
+    },
+    "Aktif rutinlerinin haftaya dağılımı." : {
+
+    },
+    "Arama metnini veya seçili filtreyi değiştirebilirsin." : {
+
+    },
+    "Aşım" : {
+
+    },
+    "Başka İşe Geç" : {
+
+    },
+    "Başla" : {
+
+    },
+    "Bekleyen" : {
+
+    },
+    "Bekleyen işler" : {
+
+    },
+    "Bildirimler" : {
+
+    },
+    "Bildirimleri Etkinleştir" : {
+
+    },
+    "Bir bölüm seç" : {
+
+    },
+    "Bir işi yeniden ele almak istersen İş Havuzu’na geri gönderebilirsin." : {
+
+    },
+    "Birkaç işi tamamladığında süre tahminlerin hakkında burada bir içgörü göreceksin." : {
+
+    },
+    "Bitir" : {
+
+    },
+    "Bitirmeden önce birkaç adım var" : {
+
+    },
+    "Bitti" : {
+
+    },
+    "Boşluk" : {
+
+    },
+    "Bu filtrede iş bulunamadı" : {
+
+    },
+    "Bu iş şimdilik geçilsin mi?" : {
+
+    },
+    "Bu iş tahmin edilenden uzun sürüyor. Kalan kısmı yeniden planla." : {
+
+    },
+    "Bu İşe Geç" : {
+
+    },
+    "Bugün" : {
+
+    },
+    "Bugün dinlenebilir veya İş Havuzu’ndan anlamlı bir sonraki adım seçebilirsin." : {
+
+    },
+    "Bugün ekranından bir işe başladığında burada göreceksin." : {
+
+    },
+    "Bugün gelen" : {
+
+    },
+    "Bugün için planlı rutin yok" : {
+
+    },
+    "Bugünden yarına taşınması gereken bir şey var mı?" : {
+
+    },
+    "Bugüne Ekle" : {
+
+    },
+    "Bugüne İş Ekle" : {
+
+    },
+    "Bugüne İş Seç" : {
+
+    },
+    "Bugünkü ilerleme" : {
+
+    },
+    "Bugünkü rutinler" : {
+
+    },
+    "Bugünü boş bırakabilir veya kütüphanenden yeni bir ritim oluşturabilirsin." : {
+
+    },
+    "Bugünün kısa özetini aç" : {
+
+    },
+    "Bugünün odağı" : {
+
+    },
+    "Bugünün planı" : {
+
+    },
+    "Bugünün planından çıkar" : {
+
+    },
+    "Bugünün rutinleri" : {
+
+    },
+    "Burada Durdum" : {
+
+    },
+    "Burada yalnızca yakala ve gözden geçir; planlama kararlarını Akşam Planı'nda ver." : {
+
+    },
+    "Ça" : {
+
+    },
+    "Çalışma kayıtları" : {
+
+    },
+    "Ct" : {
+
+    },
+    "Cu" : {
+
+    },
+    "Değerlendir" : {
+
+    },
+    "Değişiklik kaydedilemedi" : {
+
+    },
+    "Devam Et" : {
+
+    },
+    "Devret" : {
+
+    },
+    "Dinlenme" : {
+
+    },
+    "Duraklat" : {
+
+    },
+    "DURAKLATILDI" : {
+
+    },
+    "Duraklatıldı" : {
+
+    },
+    "Durdurulan" : {
+
+    },
+    "DURDURULDU" : {
+
+    },
+    "Düzenli yapmak istediğin bir alışkanlık oluştur." : {
+
+    },
+    "Ekle" : {
+
+    },
+    "Ele" : {
+
+    },
+    "Evet" : {
+
+    },
+    "Filtre" : {
+
+    },
+    "Filtreleri Temizle" : {
+
+    },
+    "Geçen süre" : {
+
+    },
+    "Geçilebilecek başka iş yok" : {
+
+    },
+    "Geçmiş hazırlanıyor…" : {
+
+    },
+    "Geçmiş kaydını koruyarak işi yeniden İş Havuzu’na al" : {
+
+    },
+    "Geçmişte ara" : {
+
+    },
+    "Gelen işleri hızla yakala. Öncelik ve zaman kararını akşam planında ver." : {
+
+    },
+    "Genel" : {
+
+    },
+    "Girişte Başlat" : {
+
+    },
+    "Görevi ekle" : {
+
+    },
+    "Görevler eklendiğinde burada sıralanacak." : {
+
+    },
+    "Görünüm" : {
+
+    },
+    "Gün içinde" : {
+
+    },
+    "Güne başladığında sıradaki işi düşünmene gerek kalmayacak." : {
+
+    },
+    "Günlük Kullanılabilir Süre: %lld sa %lld dk" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Günlük Kullanılabilir Süre: %1$lld sa %2$lld dk"
+          }
+        }
+      }
+    },
+    "Günü Değerlendir" : {
+
+    },
+    "Günün akışı" : {
+
+    },
+    "Günün akışını bozmadan küçük adımları tamamla." : {
+
+    },
+    "Günün sınırlarını belirle" : {
+
+    },
+    "Günün zamanı" : {
+
+    },
+    "Hafta içi" : {
+
+    },
+    "Haftalık" : {
+
+    },
+    "Haftalık ritim" : {
+
+    },
+    "Havuza Ekle" : {
+
+    },
+    "Havuzda" : {
+
+    },
+    "Hayır" : {
+
+    },
+    "Hazır" : {
+
+    },
+    "Hazırla" : {
+
+    },
+    "Hedeflerine katkı sağlar mı?" : {
+
+    },
+    "Henüz bir akış yok" : {
+
+    },
+    "Her gün" : {
+
+    },
+    "Her gün tekrar düşündüğün bir işi rutine dönüştür. Nexdo doğru gün geldiğinde onu planına eklesin." : {
+
+    },
+    "Her iş için süre ve başlayacağın ilk somut hareketi belirle. Sıralamayı sürükleyerek değiştirebilirsin." : {
+
+    },
+    "Herhangi" : {
+
+    },
+    "Hikâyen burada başlayacak" : {
+
+    },
+    "Hızlı Ekle" : {
+
+    },
+    "Hızlı görev ekle" : {
+
+    },
+    "Hızlı yakala" : {
+
+    },
+    "Hızlı Yakalama Kısayolu" : {
+
+    },
+    "İki kısa yanıt ver; uygun işler otomatik olarak yarının planına geçsin." : {
+
+    },
+    "İlerlemene geriye dönüp bak" : {
+
+    },
+    "İlk hareket" : {
+
+    },
+    "İlk hareket (örn. Unity'yi aç → CombatScene)" : {
+
+    },
+    "İlk ritmini oluştur" : {
+
+    },
+    "İlk Rutini Ekle" : {
+
+    },
+    "İş ara" : {
+
+    },
+    "İş bugünün planında kalacak, listenin sonuna taşınacak ve sıradaki iş öne gelecek. Bu seçenek yalnızca ilk %10 içinde kullanılabilir." : {
+
+    },
+    "İş Ekle" : {
+
+    },
+    "İş geri alınamadı" : {
+
+    },
+    "İş Havuzu" : {
+
+    },
+    "İş Havuzu boş" : {
+
+    },
+    "İş havuzu tertemiz" : {
+
+    },
+    "İş Havuzu’na Al" : {
+
+    },
+    "İş Havuzu'na yeni görev eklediğinde burada planlayabilirsin." : {
+
+    },
+    "İş Havuzu’ndaki görevlerden birini bugünün sonuna ekle." : {
+
+    },
+    "İş seçenekleri" : {
+
+    },
+    "İşi başlat ve ilk küçük adımı belirle" : {
+
+    },
+    "İşlerde ara" : {
+
+    },
+    "İşleri önceliklendir, sürelerini netleştir ve uygulanabilir bir güne dönüştür." : {
+
+    },
+    "Kalan iş" : {
+
+    },
+    "Kalan süre" : {
+
+    },
+    "Kapasite" : {
+
+    },
+    "Kapasite aşıldı" : {
+
+    },
+    "Kapasite aşımını onaylayarak planı tamamlayabilirsin." : {
+
+    },
+    "Kapat" : {
+
+    },
+    "Kaydedilemedi" : {
+
+    },
+    "Kayıt bulunamadı" : {
+
+    },
+    "Kısayollar" : {
+
+    },
+    "Küçük adımlar, kalıcı düzen" : {
+
+    },
+    "Kullanılabilir" : {
+
+    },
+    "Mevcut odak denemesi durdurulur; seçtiğin iş için yeni bir sayaç başlar." : {
+
+    },
+    "Ne kadar zaman ayıracaksın?" : {
+
+    },
+    "Ne yapman gerekiyor?" : {
+
+    },
+    "Neden?" : {
+
+    },
+    "Net ve kolay hatırlanan bir ad seç." : {
+
+    },
+    "Netleştir" : {
+
+    },
+    "Nexdo" : {
+
+    },
+    "Not (opsiyonel) — İş Havuzu'na eklemeyi unutma" : {
+
+    },
+    "Odağa Dön" : {
+
+    },
+    "Odak" : {
+
+    },
+    "Odak başlangıcı, zaman doluşu ve akşam planlama hatırlatması için kullanılır." : {
+
+    },
+    "Odak dk" : {
+
+    },
+    "Odak listen boş" : {
+
+    },
+    "ODAK OTURUMU AKTİF" : {
+
+    },
+    "Odak ritmi" : {
+
+    },
+    "Odak sürüyor" : {
+
+    },
+    "Odaktaki iş plandan çıkarılamaz" : {
+
+    },
+    "Odaktan Çık" : {
+
+    },
+    "Öğleden sonra" : {
+
+    },
+    "Önce bekleyen işleri değerlendir" : {
+
+    },
+    "Önce bugünün planına başka bir iş ekleyebilirsin." : {
+
+    },
+    "Önce gerçekçi çalışma süreni ve beklenmeyen işler için tamponu ayarla." : {
+
+    },
+    "Önce İş Havuzu’na yeni bir görev ekle." : {
+
+    },
+    "Önceliklendir" : {
+
+    },
+    "Önemli mi?" : {
+
+    },
+    "Önemli ve acil kararlarını verdikçe uygun işler burada görünecek." : {
+
+    },
+    "Örn. Günlük yürüyüş" : {
+
+    },
+    "Örn. Teklif dosyasını Ayşe'ye gönder" : {
+
+    },
+    "Özel" : {
+
+    },
+    "Özel…" : {
+
+    },
+    "Pe" : {
+
+    },
+    "Plan hazırlanıyor…" : {
+
+    },
+    "Plandan Çıkar" : {
+
+    },
+    "Planı Düzenle" : {
+
+    },
+    "Planın hazır görünüyor" : {
+
+    },
+    "Planındaki işlerin zaman sırası." : {
+
+    },
+    "Planla" : {
+
+    },
+    "Planladığın süre ile gerçekleşen süre arasındaki ilişki." : {
+
+    },
+    "Planlama" : {
+
+    },
+    "Planlama Hatırlatma Saati" : {
+
+    },
+    "Planlanacak iş bulunmuyor" : {
+
+    },
+    "Planlanan" : {
+
+    },
+    "Planlanan dk" : {
+
+    },
+    "Program" : {
+
+    },
+    "Programını gözden geçir, geçici olarak duraklat veya artık gerekli olmayan rutinleri kaldır." : {
+
+    },
+    "Pt" : {
+
+    },
+    "Pz" : {
+
+    },
+    "Return ile ekle · Esc ile kapat" : {
+
+    },
+    "Return ile kaydet • ⌘N ile bu alana dön" : {
+
+    },
+    "RİTİMLERİNİ KORU" : {
+
+    },
+    "Ritmin günün hangi bölümünde ve ne sıklıkta görünsün?" : {
+
+    },
+    "Rutin" : {
+
+    },
+    "Rutin adı" : {
+
+    },
+    "Rutin bilgileri" : {
+
+    },
+    "Rutin Ekle" : {
+
+    },
+    "Rutin kütüphanesi" : {
+
+    },
+    "Rutin seçenekleri" : {
+
+    },
+    "Rutini Sil" : {
+
+    },
+    "Rutinler hazırlanıyor…" : {
+
+    },
+    "Sa" : {
+
+    },
+    "Saat 09.00'dan başlayan otomatik zaman çizelgen." : {
+
+    },
+    "Sabah" : {
+
+    },
+    "Sadece yapılacak işi yaz. Süre ve öncelik ayrıntılarını daha sonra netleştirebilirsin." : {
+
+    },
+    "Seçili günler" : {
+
+    },
+    "Sil" : {
+
+    },
+    "ŞİMDİ" : {
+
+    },
+    "Şimdi bir karar ver." : {
+
+    },
+    "Şimdi yapamıyorum" : {
+
+    },
+    "Şimdiki iş" : {
+
+    },
+    "Şimdilik Geç" : {
+
+    },
+    "Sırada" : {
+
+    },
+    "Sıradaki" : {
+
+    },
+    "Sıradaki doğru işe odaklan" : {
+
+    },
+    "SON 14 GÜN" : {
+
+    },
+    "Son günlerde gerçekleştirdiğin odak süresi." : {
+
+    },
+    "SONRA" : {
+
+    },
+    "Sonraki" : {
+
+    },
+    "Süre gerekli" : {
+
+    },
+    "Süre ve ilk hareketi belirle" : {
+
+    },
+    "Tahmin içgörüsü" : {
+
+    },
+    "Tahmini süre" : {
+
+    },
+    "Tamam" : {
+
+    },
+    "Tamamladığın ve durdurduğun odak oturumları burada gün gün birikecek." : {
+
+    },
+    "Tamamladıkça işaretle; ilerlemen günlük olarak saklanır." : {
+
+    },
+    "Tamamladıklarını gör, süre tahminlerini geliştir ve gerekirse bir işi yeniden havuza al." : {
+
+    },
+    "Tamamlanan" : {
+
+    },
+    "TAMAMLANDI" : {
+
+    },
+    "Tamamlandı" : {
+
+    },
+    "Tamamlandı olarak işaretle" : {
+
+    },
+    "Tamamlandı olarak işaretler" : {
+
+    },
+    "Tamamlandı, geri al" : {
+
+    },
+    "Tamamlanmadı" : {
+
+    },
+    "Tamamlanmadı olarak işaretler" : {
+
+    },
+    "Tampon" : {
+
+    },
+    "Tek bir sonraki adıma odaklan; günün geri kalanı zaten sırada." : {
+
+    },
+    "Tekrar" : {
+
+    },
+    "Tekrarlanan işleri zihninden çıkar; doğru günde, doğru zamanda karşına gelsin." : {
+
+    },
+    "Temizle" : {
+
+    },
+    "Tümü" : {
+
+    },
+    "Uygula" : {
+
+    },
+    "Uzatma Süresi: %lld dk" : {
+
+    },
+    "Varsayılan Tampon: %lld dk" : {
+
+    },
+    "Varsayılan Timebox: %lld dk" : {
+
+    },
+    "Vazgeç" : {
+
+    },
+    "Yakala" : {
+
+    },
+    "Yakın bir son tarihi var mı?" : {
+
+    },
+    "Yarın hazır" : {
+
+    },
+    "Yarın için %lld işi netleştirdin. Planı sabitleyebilirsin." : {
+
+    },
+    "Yarın için plan eksik" : {
+
+    },
+    "Yarına eklenir" : {
+
+    },
+    "Yarından Çıkar" : {
+
+    },
+    "Yarını Hazırla" : {
+
+    },
+    "Yarını sakin bir zihinle kur" : {
+
+    },
+    "Yarının odak listesi" : {
+
+    },
+    "Yarının planından çıkar" : {
+
+    },
+    "Yarının zaman çizelgesi" : {
+
+    },
+    "Yeni" : {
+
+    },
+    "Yeni bir iş geldiğinde yukarıdaki alana bırak; geri kalanını akşam planında çözersin." : {
+
+    },
+    "Yeni iş ekle" : {
+
+    },
+    "Yeni iş ekleme alanına geç" : {
+
+    },
+    "Yeni Rutin" : {
+
+    },
+    "Yine de Hazırla" : {
+
+    },
+    "Zaman çizelgesi boş" : {
+
+    },
+    "Zaman doldu." : {
+
+    },
+    "ZİHNİNİ BOŞALT" : {
+
+    }
+  },
+  "version" : "1.3"
+}

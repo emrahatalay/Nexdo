@@ -1,3 +1,4 @@
+import Foundation
 import SwiftData
 import SwiftUI
 
@@ -242,7 +243,9 @@ private struct HistoryDayBar: View {
         }
         .frame(maxWidth: .infinity)
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel(Text("\(day.date.formatted(date: .abbreviated, time: .omitted)), \(day.totalActualMinutes) dakika odak"))
+        .accessibilityLabel(
+            Text("\(day.date.formatted(.dateTime.day().month(.abbreviated).year().locale(Locale(identifier: "tr_TR")))), \(day.totalActualMinutes) dakika odak")
+        )
     }
 }
 

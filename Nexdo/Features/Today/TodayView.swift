@@ -577,7 +577,9 @@ private struct CurrentTaskCard: View {
                     Spacer()
                     if let start = task.scheduledStart, let end = task.scheduledEnd {
                         Label {
-                            Text("\(start.formatted(date: .omitted, time: .shortened))–\(end.formatted(date: .omitted, time: .shortened))")
+                            Text(
+                                "\(start.formatted(.dateTime.hour().minute().locale(Locale(identifier: "tr_TR"))))–\(end.formatted(.dateTime.hour().minute().locale(Locale(identifier: "tr_TR"))))"
+                            )
                         } icon: {
                             Image(systemName: "clock")
                         }

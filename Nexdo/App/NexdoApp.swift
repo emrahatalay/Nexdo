@@ -1,3 +1,4 @@
+import Foundation
 import SwiftData
 import SwiftUI
 
@@ -8,10 +9,22 @@ struct NexdoApp: App {
 
     @AppStorage(AppSettingsKey.appearance) private var appearanceRawValue = AppAppearance.system.rawValue
 
+    private let turkishLocale = Locale(identifier: "tr_TR")
+
+    private var turkishCalendar: Calendar {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.locale = turkishLocale
+        calendar.timeZone = .autoupdatingCurrent
+        calendar.firstWeekday = 2
+        return calendar
+    }
+
     var body: some Scene {
         WindowGroup {
             RootView()
                 .preferredColorScheme(AppAppearance(rawValue: appearanceRawValue)?.colorScheme)
+                .environment(\.locale, turkishLocale)
+                .environment(\.calendar, turkishCalendar)
         }
         .modelContainer(environment.modelContainer)
         .commands {
@@ -35,12 +48,18 @@ struct NexdoApp: App {
 
         Settings {
             SettingsView()
+                .environment(\.locale, turkishLocale)
+                .environment(\.calendar, turkishCalendar)
         }
 
         MenuBarExtra {
             MenuBarPopoverView()
+                .environment(\.locale, turkishLocale)
+                .environment(\.calendar, turkishCalendar)
         } label: {
             MenuBarLabelView()
+                .environment(\.locale, turkishLocale)
+                .environment(\.calendar, turkishCalendar)
         }
         .menuBarExtraStyle(.window)
     }
