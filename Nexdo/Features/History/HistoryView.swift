@@ -54,6 +54,9 @@ struct HistoryView: View {
                 }
             }
             .listStyle(.inset)
+            .scrollContentBackground(.hidden)
+            .background(AppBackground())
+            .contentMargins(.horizontal, AppSpacing.medium, for: .scrollContent)
         }
     }
 
@@ -86,6 +89,7 @@ struct HistoryView: View {
         HStack(spacing: AppSpacing.small) {
             Image(systemName: isStopped ? "pause.circle" : "checkmark.circle.fill")
                 .foregroundStyle(isStopped ? .orange : Color.accentColor)
+                .accessibilityLabel(isStopped ? "Durduruldu" : "Tamamlandı")
             VStack(alignment: .leading, spacing: 2) {
                 Text(session.taskTitle)
                 Text("Tahmin: \(session.estimatedMinutes) dk · Gerçek: \(session.actualMinutes) dk")

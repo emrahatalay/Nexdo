@@ -99,6 +99,9 @@ struct RoutinesView: View {
                 }
             }
             .listStyle(.inset)
+            .scrollContentBackground(.hidden)
+            .background(AppBackground())
+            .contentMargins(.horizontal, AppSpacing.medium, for: .scrollContent)
         }
     }
 

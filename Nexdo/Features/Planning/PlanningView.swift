@@ -118,6 +118,9 @@ struct PlanningView: View {
             }
         }
         .listStyle(.inset)
+        .scrollContentBackground(.hidden)
+        .background(AppBackground())
+        .contentMargins(.horizontal, AppSpacing.medium, for: .scrollContent)
         .alert("Yarın için plan eksik", isPresented: $showBlockingIssues) {
             Button("Tamam", role: .cancel) {}
         } message: {
@@ -158,7 +161,10 @@ struct PlanningView: View {
                     viewModel.unlockPlan()
                 }
             }
+            .frame(maxWidth: AppSpacing.pageMaxWidth, alignment: .leading)
             .padding(AppSpacing.large)
+            .frame(maxWidth: .infinity)
         }
+        .background(AppBackground())
     }
 }

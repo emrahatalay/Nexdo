@@ -5,8 +5,6 @@ import SwiftData
 @MainActor
 @Observable
 final class PlanningViewModel {
-    static let defaultAvailableMinutes = 360
-    static let defaultBufferMinutes = 45
     static let dayStartHour = 9
 
     private let modelContext: ModelContext
@@ -38,8 +36,12 @@ final class PlanningViewModel {
         if let existing = existingPlans.first(where: { $0.date == date }) {
             return existing
         }
-        let plan = DailyPlan(date: date, availableFocusMinutes: defaultAvailableMinutes)
-        plan.bufferMinutes = defaultBufferMinutes
+        let defaults = UserDefaults.standard
+        let plan = DailyPlan(
+            date: date,
+            availableFocusMinutes: defaults.integer(forKey: AppSettingsKey.dailyAvailableMinutes)
+        )
+        plan.bufferMinutes = defaults.integer(forKey: AppSettingsKey.defaultBufferMinutes)
         context.insert(plan)
         try? context.save()
         return plan

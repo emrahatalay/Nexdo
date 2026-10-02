@@ -41,7 +41,8 @@ struct TimeUpModal: View {
             }
         }
         .padding(AppSpacing.xLarge)
-        .frame(width: 360)
+        .frame(minWidth: 320, idealWidth: 380, maxWidth: 460)
+        .background(AppBackground())
         .interactiveDismissDisabled()
     }
 }

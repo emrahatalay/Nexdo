@@ -13,11 +13,8 @@ final class FocusTimerService {
     private var expiryCheckTask: Task<Void, Never>?
 
     private(set) var activeSession: FocusSession?
-
-    /// Saniyede bir güncellenir; View'lar canlı sayaç göstermek için `TimelineView` yerine
-    /// bunu okur (MenuBarExtra'nın durum çubuğu düğmesiyle `TimelineView` etkileşimi bir
-    /// güncelleme fırtınasına yol açıp uygulama açılışını kilitliyordu).
-    private(set) var tickDate: Date = .now
+    private(set) var countdownText = "00:00"
+    private(set) var menuBarText = "◎"
 
     init(modelContext: ModelContext) {
         self.modelContext = modelContext
@@ -25,6 +22,7 @@ final class FocusTimerService {
 
         if let session = activeSession {
             engine.checkExpiry(session)
+            updateDisplay()
             save()
             if session.state == .running {
                 scheduleExpiryChecks()
@@ -34,41 +32,52 @@ final class FocusTimerService {
 
     func start(for task: TaskItem) {
         guard activeSession == nil else { return }
-        let duration = task.estimatedDuration ?? 25 * 60
+        let defaultMinutes = UserDefaults.standard.integer(forKey: AppSettingsKey.defaultTimeboxMinutes)
+        let duration = task.estimatedDuration ?? TimeInterval(defaultMinutes * 60)
         let session = FocusSession(task: task, plannedDuration: duration)
         engine.start(session)
         task.status = .active
         task.startedAt = .now
         modelContext.insert(session)
         activeSession = session
+        updateDisplay()
         save()
         scheduleExpiryChecks()
+        NotificationService.shared.notifyFocusStarted(taskTitle: task.title)
     }
 
     func pause() {
         guard let session = activeSession else { return }
         try? engine.pause(session)
+        stopExpiryChecks()
+        updateDisplay()
         save()
     }
 
     func resume() {
         guard let session = activeSession else { return }
         try? engine.resume(session)
+        updateDisplay()
         save()
+        scheduleExpiryChecks()
     }
 
     func refreshExpiry(at date: Date = .now) {
         guard let session = activeSession else { return }
         if engine.checkExpiry(session, at: date) {
             save()
+            NotificationService.shared.notifyTimeboxCompleted(minutes: Int(session.plannedDuration / 60))
         }
     }
 
     /// İkinci uzatma talebi sessizce yok sayılır; UI bu durumda "yeniden planla" mesajını göstermelidir.
     func requestExtension() {
         guard let session = activeSession else { return }
-        try? engine.extend(session, by: 15 * 60)
+        let extensionMinutes = UserDefaults.standard.integer(forKey: AppSettingsKey.extensionMinutes)
+        try? engine.extend(session, by: TimeInterval(extensionMinutes * 60))
+        updateDisplay()
         save()
+        scheduleExpiryChecks()
     }
 
     func complete() {
@@ -111,6 +120,7 @@ final class FocusTimerService {
 
         activeSession = nil
         stopExpiryChecks()
+        updateDisplay()
         save()
     }
 
@@ -118,8 +128,9 @@ final class FocusTimerService {
         expiryCheckTask?.cancel()
         expiryCheckTask = Task { [weak self] in
             while let self, !Task.isCancelled {
-                self.refreshExpiry()
-                self.tickDate = .now
+                let date = Date.now
+                self.refreshExpiry(at: date)
+                self.updateDisplay(at: date)
                 try? await Task.sleep(for: .seconds(1))
             }
         }
@@ -128,6 +139,27 @@ final class FocusTimerService {
     private func stopExpiryChecks() {
         expiryCheckTask?.cancel()
         expiryCheckTask = nil
+    }
+
+    private func updateDisplay(at date: Date = .now) {
+        guard let session = activeSession,
+              let task = session.task,
+              session.state == .running || session.state == .paused else {
+            countdownText = "00:00"
+            menuBarText = "◎"
+            return
+        }
+
+        let totalSeconds = Int(ceil(max(session.remainingTime(at: date), 0)))
+        countdownText = String(
+            format: "%02d:%02d",
+            totalSeconds / 60,
+            totalSeconds % 60
+        )
+        let shortTitle = task.title.count > 14
+            ? String(task.title.prefix(14)) + "…"
+            : task.title
+        menuBarText = "◎ \(shortTitle) · \(countdownText)"
     }
 
     private static func fetchResumableSession(in context: ModelContext) -> FocusSession? {

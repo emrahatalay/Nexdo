@@ -11,6 +11,7 @@ final class AppEnvironment {
     let navigationState = AppNavigationState()
 
     private init() {
+        AppSettingsKey.registerDefaults()
         self.modelContainer = PersistenceController.shared.container
         self.focusTimerService = FocusTimerService(modelContext: modelContainer.mainContext)
     }

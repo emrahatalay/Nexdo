@@ -18,8 +18,9 @@ struct MenuBarPopoverView: View {
                 Text(task.title)
                     .font(AppTypography.body.bold())
 
-                Text(formattedRemaining(session.remainingTime(at: timerService.tickDate)))
-                    .font(AppTypography.timer)
+                Text(timerService.countdownText)
+                    .font(.system(size: 38, weight: .semibold, design: .rounded))
+                    .monospacedDigit()
 
                 HStack(spacing: AppSpacing.small) {
                     Button(session.state == .paused ? "Devam Et" : "Duraklat") {
@@ -63,10 +64,5 @@ struct MenuBarPopoverView: View {
             .filter { $0.plannedDate == today && $0.status == .planned && $0.id != currentTaskID }
             .sorted { $0.sortOrder < $1.sortOrder }
             .first
-    }
-
-    private func formattedRemaining(_ interval: TimeInterval) -> String {
-        let clamped = max(interval, 0)
-        return String(format: "%02d:%02d", Int(clamped) / 60, Int(clamped) % 60)
     }
 }

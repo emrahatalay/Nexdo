@@ -30,6 +30,7 @@ struct PostponeReasonSheet: View {
             }
         }
         .padding(AppSpacing.large)
-        .frame(width: 360)
+        .frame(minWidth: 320, idealWidth: 380, maxWidth: 460)
+        .background(AppBackground())
     }
 }

@@ -39,7 +39,6 @@ struct FocusView: View {
 
     @ViewBuilder
     private var content: some View {
-        let date = timerService.tickDate
         if let session = timerService.activeSession, let task = session.task {
             VStack(spacing: AppSpacing.large) {
                 Spacer()
@@ -53,30 +52,37 @@ struct FocusView: View {
                         .foregroundStyle(.secondary)
                 }
 
-                Text(formattedRemaining(session.remainingTime(at: date)))
+                FocusLiveCountdownText(session: session)
                     .font(AppTypography.timer)
                     .foregroundStyle(session.state == .paused ? .secondary : .primary)
-                    .accessibilityLabel("Kalan süre \(Int(max(session.remainingTime(at: date), 0) / 60)) dakika")
+                    .contentTransition(.numericText(countsDown: true))
 
-                HStack(spacing: AppSpacing.large) {
-                    Button(session.state == .paused ? "Devam Et" : "Duraklat") {
-                        if session.state == .paused {
-                            timerService.resume()
-                        } else {
-                            timerService.pause()
+                ViewThatFits {
+                    HStack(spacing: AppSpacing.small) {
+                        FocusPauseButton(
+                            isPaused: session.state == .paused,
+                            onPause: timerService.pause,
+                            onResume: timerService.resume
+                        )
+                        FocusCompleteButton {
+                            timerService.complete()
+                            exitFocus()
                         }
                     }
-                    .buttonStyle(.bordered)
-                    .controlSize(.large)
-                    .keyboardShortcut(.space, modifiers: [])
 
-                    Button("Bitti") {
-                        timerService.complete()
-                        exitFocus()
+                    VStack(spacing: AppSpacing.small) {
+                        FocusPauseButton(
+                            isPaused: session.state == .paused,
+                            onPause: timerService.pause,
+                            onResume: timerService.resume
+                        )
+                        .frame(maxWidth: .infinity)
+                        FocusCompleteButton {
+                            timerService.complete()
+                            exitFocus()
+                        }
+                        .frame(maxWidth: .infinity)
                     }
-                    .buttonStyle(.borderedProminent)
-                    .controlSize(.large)
-                    .keyboardShortcut(.return, modifiers: [.command, .shift])
                 }
 
                 Button("Şimdi yapamıyorum") {
@@ -93,6 +99,7 @@ struct FocusView: View {
             }
             .padding(AppSpacing.xLarge)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(AppBackground())
         } else {
             ContentUnavailableView(
                 "Aktif bir odak oturumu yok",
@@ -102,12 +109,34 @@ struct FocusView: View {
         }
     }
 
+    private struct FocusPauseButton: View {
+        let isPaused: Bool
+        let onPause: () -> Void
+        let onResume: () -> Void
+
+        var body: some View {
+            Button(isPaused ? "Devam Et" : "Duraklat", systemImage: isPaused ? "play.fill" : "pause.fill") {
+                isPaused ? onResume() : onPause()
+            }
+            .buttonStyle(.bordered)
+            .controlSize(.large)
+            .keyboardShortcut(.space, modifiers: [])
+        }
+    }
+
+    private struct FocusCompleteButton: View {
+        let action: () -> Void
+
+        var body: some View {
+            Button("Bitti", systemImage: "checkmark", action: action)
+                .buttonStyle(.borderedProminent)
+                .controlSize(.large)
+                .keyboardShortcut(.return, modifiers: [.command, .shift])
+        }
+    }
+
     private func exitFocus() {
         AppEnvironment.shared.navigationState.selection = .today
     }
 
-    private func formattedRemaining(_ interval: TimeInterval) -> String {
-        let clamped = max(interval, 0)
-        return String(format: "%02d:%02d", Int(clamped) / 60, Int(clamped) % 60)
-    }
 }

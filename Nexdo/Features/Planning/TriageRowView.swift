@@ -32,9 +32,11 @@ struct TriageRowView: View {
                 Button("Evet") { selection.wrappedValue = true }
                     .buttonStyle(.bordered)
                     .tint(selection.wrappedValue == true ? .accentColor : nil)
+                    .accessibilityLabel("\(task.title): \(title) Evet")
                 Button("Hayır") { selection.wrappedValue = false }
                     .buttonStyle(.bordered)
                     .tint(selection.wrappedValue == false ? .accentColor : nil)
+                    .accessibilityLabel("\(task.title): \(title) Hayır")
             }
         }
     }

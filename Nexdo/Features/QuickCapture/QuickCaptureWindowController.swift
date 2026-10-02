@@ -2,19 +2,22 @@ import AppKit
 import SwiftData
 import SwiftUI
 
-/// Quick Capture panelini barındıran borderless, floating `NSPanel`.
-/// SwiftUI'nin `Window` scene'i global kısayolla tetiklenen, odaksız-açılabilen
-/// bir palet için yeterli kontrolü sağlamadığından AppKit kullanılıyor.
+private final class QuickCaptureWindow: NSPanel {
+    override var canBecomeKey: Bool { true }
+    override var canBecomeMain: Bool { false }
+}
+
 @MainActor
 final class QuickCaptureWindowController: NSWindowController, NSWindowDelegate {
     private let modelContext: ModelContext
+    private let presentationState = QuickCapturePresentationState()
 
     init(modelContainer: ModelContainer) {
         self.modelContext = ModelContext(modelContainer)
 
-        let panel = NSPanel(
-            contentRect: NSRect(x: 0, y: 0, width: 480, height: 88),
-            styleMask: [.borderless, .nonactivatingPanel],
+        let panel = QuickCaptureWindow(
+            contentRect: NSRect(x: 0, y: 0, width: 520, height: 108),
+            styleMask: [.borderless],
             backing: .buffered,
             defer: false
         )
@@ -23,17 +26,22 @@ final class QuickCaptureWindowController: NSWindowController, NSWindowDelegate {
         panel.isOpaque = false
         panel.backgroundColor = .clear
         panel.hasShadow = true
-        panel.hidesOnDeactivate = false
+        panel.hidesOnDeactivate = true
         panel.isReleasedWhenClosed = false
         panel.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
+        panel.animationBehavior = .utilityWindow
 
         super.init(window: panel)
 
         panel.delegate = self
         panel.contentView = NSHostingView(
-            rootView: QuickCapturePanel(modelContext: modelContext, onDismiss: { [weak self] in
-                self?.hide()
-            })
+            rootView: QuickCapturePanel(
+                modelContext: modelContext,
+                presentationState: presentationState,
+                onDismiss: { [weak self] in
+                    self?.hide()
+                }
+            )
         )
     }
 
@@ -44,29 +52,30 @@ final class QuickCaptureWindowController: NSWindowController, NSWindowDelegate {
 
     func toggle() {
         guard let panel = window else { return }
-        if panel.isVisible {
-            hide()
-        } else {
-            show()
-        }
+        panel.isVisible ? hide() : show()
     }
 
     private func show() {
         guard let panel = window, let screen = NSScreen.main else { return }
+
         let origin = NSPoint(
             x: screen.visibleFrame.midX - panel.frame.width / 2,
             y: screen.visibleFrame.midY - panel.frame.height / 2 + screen.visibleFrame.height * 0.15
         )
         panel.setFrameOrigin(origin)
+
         NSApp.activate(ignoringOtherApps: true)
         panel.makeKeyAndOrderFront(nil)
+        presentationState.focusRequest += 1
     }
 
     private func hide() {
-        window?.orderOut(nil)
+        guard let panel = window, panel.isVisible else { return }
+        panel.orderOut(nil)
     }
 
     func windowDidResignKey(_ notification: Notification) {
-        hide()
+        guard let panel = notification.object as? NSPanel, panel.isVisible else { return }
+        panel.orderOut(nil)
     }
 }

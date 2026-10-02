@@ -38,7 +38,8 @@ struct DayReviewSheet: View {
                 .frame(maxWidth: .infinity)
         }
         .padding(AppSpacing.large)
-        .frame(width: 400)
+        .frame(minWidth: 340, idealWidth: 440, maxWidth: 540)
+        .background(AppBackground())
     }
 
     private func row(_ label: String, _ value: String) -> some View {

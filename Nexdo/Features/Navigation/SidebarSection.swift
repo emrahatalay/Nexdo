@@ -1,4 +1,4 @@
-import Foundation
+import SwiftUI
 
 enum SidebarSection: String, CaseIterable, Identifiable, Hashable {
     case today
@@ -23,12 +23,23 @@ enum SidebarSection: String, CaseIterable, Identifiable, Hashable {
 
     var systemImage: String {
         switch self {
-        case .today: "sun.max"
-        case .inbox: "tray"
-        case .planning: "moon.stars"
+        case .today: "sun.max.fill"
+        case .inbox: "tray.fill"
+        case .planning: "moon.stars.fill"
         case .focus: "scope"
-        case .routines: "repeat"
+        case .routines: "repeat.circle.fill"
         case .history: "clock.arrow.circlepath"
+        }
+    }
+
+    var tint: Color {
+        switch self {
+        case .today: .orange
+        case .inbox: .blue
+        case .planning: .indigo
+        case .focus: .purple
+        case .routines: .green
+        case .history: .teal
         }
     }
 }

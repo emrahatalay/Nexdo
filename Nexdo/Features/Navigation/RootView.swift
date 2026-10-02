@@ -6,22 +6,58 @@ struct RootView: View {
 
     var body: some View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
-            List(SidebarSection.allCases, selection: $navigationState.selection) { section in
-                Label(section.title, systemImage: section.systemImage)
-                    .tag(section)
-            }
-            .navigationTitle("Önce Ne, Sonra Ne Kadar")
+            AppSidebar(selection: $navigationState.selection)
+                .navigationSplitViewColumnWidth(min: 210, ideal: 240, max: 280)
         } detail: {
-            detailView(for: navigationState.selection)
+            DetailDestination(section: navigationState.selection)
+                .frame(minWidth: 420, minHeight: 520)
         }
+        .navigationSplitViewStyle(.balanced)
         .onChange(of: navigationState.selection) { _, newValue in
-            // Madde 14: Focus Mode'da sidebar dikkat dağıtmamalı.
-            columnVisibility = (newValue == .focus) ? .detailOnly : .all
+            columnVisibility = newValue == .focus ? .detailOnly : .all
         }
     }
+}
 
-    @ViewBuilder
-    private func detailView(for section: SidebarSection?) -> some View {
+private struct AppSidebar: View {
+    @Binding var selection: SidebarSection?
+
+    var body: some View {
+        List(SidebarSection.allCases, selection: $selection) { section in
+            NavigationLink(value: section) {
+                HStack(spacing: AppSpacing.small) {
+                    Image(systemName: section.systemImage)
+                        .symbolRenderingMode(.hierarchical)
+                        .foregroundStyle(section.tint)
+                        .frame(width: 28, height: 28)
+                        .background(section.tint.opacity(0.12), in: RoundedRectangle(cornerRadius: 8))
+
+                    Text(section.title)
+                        .font(.body.weight(selection == section ? .semibold : .regular))
+                }
+                .padding(.vertical, AppSpacing.xSmall)
+            }
+        }
+        .listStyle(.sidebar)
+        .navigationTitle("Nexdo")
+        .safeAreaInset(edge: .bottom) {
+            HStack(spacing: AppSpacing.small) {
+                Image(systemName: "sparkles")
+                    .foregroundStyle(Color.accentColor)
+                Text("Sıradaki doğru işe odaklan")
+                    .font(AppTypography.caption)
+                    .foregroundStyle(.secondary)
+            }
+            .padding(AppSpacing.medium)
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
+    }
+}
+
+private struct DetailDestination: View {
+    let section: SidebarSection?
+
+    var body: some View {
         switch section {
         case .today:
             TodayView()

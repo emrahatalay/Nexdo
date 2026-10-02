@@ -12,16 +12,23 @@ import IOKit.hid
 final class GlobalShortcutCenter {
     static let shared = GlobalShortcutCenter()
 
-    /// Varsayılan Quick Capture kısayolu: ⌘⇧Space. Settings'ten değiştirilebilir
-    /// hale getirilmesi Phase 8 (Settings/Shortcuts) kapsamındadır.
-    private let keyCode: UInt16 = 49
-    private let requiredModifiers: NSEvent.ModifierFlags = [.command, .shift]
+    /// Madde 5: kısayol Settings'ten değiştirilebilir olmalı. Varsayılan: ⌘⇧Space.
+    private(set) var keyCode: UInt16
+    private(set) var modifiers: NSEvent.ModifierFlags
+    private(set) var displayString: String
 
     private var globalMonitor: Any?
     private var localMonitor: Any?
     private var onTrigger: (() -> Void)?
 
-    private init() {}
+    private init() {
+        let defaults = UserDefaults.standard
+        self.keyCode = UInt16(defaults.integer(forKey: AppSettingsKey.quickCaptureKeyCode))
+        self.modifiers = NSEvent.ModifierFlags(
+            rawValue: UInt(defaults.integer(forKey: AppSettingsKey.quickCaptureModifiers))
+        )
+        self.displayString = defaults.string(forKey: AppSettingsKey.quickCaptureDisplayString) ?? "⌘⇧Space"
+    }
 
     func start(onTrigger: @escaping () -> Void) {
         self.onTrigger = onTrigger
@@ -48,6 +55,25 @@ final class GlobalShortcutCenter {
         localMonitor = nil
     }
 
+    /// Settings > Kısayollar'daki kaydedici bu metodu çağırır; yakalanan tuş o anda
+    /// bir modifier ile basılmış olmalıdır (en az bir modifier zorunlu), aksi halde
+    /// kısayol normal yazım sırasında kazara tetiklenebilir.
+    func updateShortcut(keyCode: UInt16, modifiers: NSEvent.ModifierFlags, displayString: String) {
+        self.keyCode = keyCode
+        self.modifiers = modifiers
+        self.displayString = displayString
+
+        let defaults = UserDefaults.standard
+        defaults.set(Int(keyCode), forKey: AppSettingsKey.quickCaptureKeyCode)
+        defaults.set(Int(modifiers.rawValue), forKey: AppSettingsKey.quickCaptureModifiers)
+        defaults.set(displayString, forKey: AppSettingsKey.quickCaptureDisplayString)
+
+        if let onTrigger {
+            stop()
+            start(onTrigger: onTrigger)
+        }
+    }
+
     /// `IOHIDRequestAccess` sistem izin diyaloğu kapanana kadar çağıran thread'i bloke eder.
     /// Ana thread'de çağrılırsa tüm uygulama açılışını donduruyormuş gibi görünür — bu yüzden
     /// `nonisolated` olup işi tamamen arka plan kuyruğuna devrediyor.
@@ -65,6 +91,6 @@ final class GlobalShortcutCenter {
 
     private func matches(_ event: NSEvent) -> Bool {
         event.keyCode == keyCode
-            && event.modifierFlags.intersection(.deviceIndependentFlagsMask) == requiredModifiers
+            && event.modifierFlags.intersection(.deviceIndependentFlagsMask) == modifiers
     }
 }
