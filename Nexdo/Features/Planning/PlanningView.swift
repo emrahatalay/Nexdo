@@ -6,6 +6,7 @@ struct PlanningView: View {
     @State private var viewModel: PlanningViewModel?
     @State private var showBlockingIssues = false
     @State private var showCapacityConfirmation = false
+    @State private var showDayReview = false
 
     var body: some View {
         Group {
@@ -16,11 +17,42 @@ struct PlanningView: View {
             }
         }
         .navigationTitle(SidebarSection.planning.title)
+        .toolbar {
+            ToolbarItem {
+                Button {
+                    showDayReview = true
+                } label: {
+                    Label("Günü Değerlendir", systemImage: "checklist")
+                }
+            }
+        }
         .task {
             if viewModel == nil {
                 viewModel = PlanningViewModel(modelContext: modelContext)
             }
         }
+        .sheet(isPresented: $showDayReview) {
+            DayReviewSheet(statistics: todaysStatistics()) {
+                showDayReview = false
+            }
+        }
+    }
+
+    /// Madde 27: Akşam Planı'na geçmeden önce bugünün kısa özeti.
+    private func todaysStatistics() -> DayStatistics {
+        let today = Calendar.current.startOfDay(for: .now)
+        let allTasks = (try? modelContext.fetch(FetchDescriptor<TaskItem>())) ?? []
+        let allSessions = (try? modelContext.fetch(FetchDescriptor<FocusSession>())) ?? []
+        let allRoutines = (try? modelContext.fetch(FetchDescriptor<Routine>())) ?? []
+        let allCompletions = (try? modelContext.fetch(FetchDescriptor<RoutineCompletion>())) ?? []
+        return StatisticsService().dayStatistics(
+            for: today,
+            allTasks: allTasks,
+            allSessions: allSessions,
+            allRoutines: allRoutines,
+            allCompletions: allCompletions,
+            scheduler: RoutineScheduler()
+        )
     }
 
     @ViewBuilder
