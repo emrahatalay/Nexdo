@@ -12,11 +12,13 @@ final class PlanningViewModel {
     private let modelContext: ModelContext
     private let capacityService = CapacityService()
     private let planningService = PlanningService()
+    private let routineScheduler = RoutineScheduler()
 
     let tomorrowDate: Date
     private(set) var dailyPlan: DailyPlan
     private(set) var inboxTasks: [TaskItem] = []
     private(set) var tomorrowTasks: [TaskItem] = []
+    private(set) var activeRoutinesForTomorrow: [Routine] = []
     private(set) var capacityResult = CapacityResult(
         availableMinutes: 0, routineMinutes: 0, plannedTaskMinutes: 0, bufferMinutes: 0
     )
@@ -47,8 +49,10 @@ final class PlanningViewModel {
         validationIssues.filter(\.isBlocking)
     }
 
+    /// Madde 11: timeline hem Task hem Routine gösterir. "Herhangi" zamanlı rutinler sabit bir
+    /// saate iğnelenemediği için bu kronolojik görünüme dahil edilmez (Routines ekranında kalır).
     var timelineBlocks: [TimelineBlock] {
-        var blocks = tomorrowTasks
+        var blocks: [TimelineBlock] = tomorrowTasks
             .sorted { $0.sortOrder < $1.sortOrder }
             .compactMap { task -> TimelineBlock? in
                 guard let start = task.scheduledStart else { return nil }
@@ -61,6 +65,21 @@ final class PlanningViewModel {
                     kind: .task
                 )
             }
+
+        let routineBlocks = activeRoutinesForTomorrow.compactMap { routine -> TimelineBlock? in
+            guard let anchor = anchorTime(for: routine) else { return nil }
+            return TimelineBlock(
+                id: routine.id,
+                startTime: anchor,
+                duration: routine.estimatedDuration,
+                title: routine.title,
+                subtitle: nil,
+                kind: .routine
+            )
+        }
+        blocks.append(contentsOf: routineBlocks)
+        blocks.sort { $0.startTime < $1.startTime }
+
         if let last = blocks.last, dailyPlan.bufferMinutes > 0 {
             blocks.append(TimelineBlock(
                 id: UUID(),
@@ -88,6 +107,9 @@ final class PlanningViewModel {
         tomorrowTasks = allTasks
             .filter { $0.status == .planned && $0.plannedDate == tomorrowDate }
             .sorted { $0.sortOrder < $1.sortOrder }
+
+        let allRoutines = (try? modelContext.fetch(FetchDescriptor<Routine>())) ?? []
+        activeRoutinesForTomorrow = routineScheduler.activeRoutines(from: allRoutines, on: tomorrowDate)
 
         recomputeSchedule()
         recomputeCapacity()
@@ -173,9 +195,10 @@ final class PlanningViewModel {
 
     private func recomputeCapacity() {
         let taskMinutes = tomorrowTasks.reduce(0) { $0 + Int(($1.estimatedDuration ?? 0) / 60) }
+        let routineMinutes = activeRoutinesForTomorrow.reduce(0) { $0 + Int($1.estimatedDuration / 60) }
         capacityResult = capacityService.evaluate(
             availableMinutes: dailyPlan.availableFocusMinutes,
-            routineMinutes: dailyPlan.routineMinutes,
+            routineMinutes: routineMinutes,
             plannedTaskMinutes: taskMinutes,
             bufferMinutes: dailyPlan.bufferMinutes
         )
@@ -190,6 +213,31 @@ final class PlanningViewModel {
         for entry in scheduled {
             entry.task.scheduledStart = entry.start
             entry.task.scheduledEnd = entry.end
+        }
+    }
+
+    /// `preferredStartTime` varsa onun saat/dakikası kullanılır; yoksa `timeOfDay`'den kaba bir
+    /// varsayılan türetilir. "Anytime" rutinler için sabit bir saat anlamlı değildir, `nil` döner.
+    private func anchorTime(for routine: Routine) -> Date? {
+        let calendar = Calendar.current
+        if let preferredStartTime = routine.preferredStartTime {
+            let components = calendar.dateComponents([.hour, .minute], from: preferredStartTime)
+            return calendar.date(
+                bySettingHour: components.hour ?? 8,
+                minute: components.minute ?? 0,
+                second: 0,
+                of: tomorrowDate
+            )
+        }
+        switch routine.timeOfDay {
+        case .morning:
+            return calendar.date(bySettingHour: 8, minute: 0, second: 0, of: tomorrowDate)
+        case .afternoon:
+            return calendar.date(bySettingHour: 13, minute: 0, second: 0, of: tomorrowDate)
+        case .evening:
+            return calendar.date(bySettingHour: 18, minute: 0, second: 0, of: tomorrowDate)
+        case .anytime:
+            return nil
         }
     }
 
