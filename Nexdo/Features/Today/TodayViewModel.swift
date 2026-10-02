@@ -34,7 +34,9 @@ final class TodayViewModel {
             .sorted { $0.sortOrder < $1.sortOrder }
     }
 
+    /// Postpone edilen görev bugünün sırasının sonuna atılır ki ŞİMDİ aynı işte sıkışıp kalmasın.
     func recordPostponement(for task: TaskItem, reason: PostponeReason) {
+        task.sortOrder = (todayTasks.map(\.sortOrder).max() ?? task.sortOrder) + 1
         PostponementRecorder().record(task: task, reason: reason, in: modelContext)
         refresh()
     }

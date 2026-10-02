@@ -48,9 +48,14 @@ final class GlobalShortcutCenter {
         localMonitor = nil
     }
 
-    func requestInputMonitoringAccessIfNeeded() {
-        guard IOHIDCheckAccess(kIOHIDRequestTypeListenEvent) == kIOHIDAccessTypeUnknown else { return }
-        IOHIDRequestAccess(kIOHIDRequestTypeListenEvent)
+    /// `IOHIDRequestAccess` sistem izin diyaloğu kapanana kadar çağıran thread'i bloke eder.
+    /// Ana thread'de çağrılırsa tüm uygulama açılışını donduruyormuş gibi görünür — bu yüzden
+    /// `nonisolated` olup işi tamamen arka plan kuyruğuna devrediyor.
+    nonisolated func requestInputMonitoringAccessIfNeeded() {
+        DispatchQueue.global(qos: .utility).async {
+            guard IOHIDCheckAccess(kIOHIDRequestTypeListenEvent) == kIOHIDAccessTypeUnknown else { return }
+            IOHIDRequestAccess(kIOHIDRequestTypeListenEvent)
+        }
     }
 
     private func handle(_ event: NSEvent) {

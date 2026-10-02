@@ -72,7 +72,7 @@ struct PlanningView: View {
                 }
 
                 Section("Zaman Çizelgesi") {
-                    TimelineView(blocks: viewModel.timelineBlocks)
+                    ScheduleTimelineView(blocks: viewModel.timelineBlocks)
                 }
             }
 
@@ -120,7 +120,7 @@ struct PlanningView: View {
                 Text("\(viewModel.tomorrowTasks.count) iş planlandı.")
                     .foregroundStyle(.secondary)
 
-                TimelineView(blocks: viewModel.timelineBlocks)
+                ScheduleTimelineView(blocks: viewModel.timelineBlocks)
 
                 Button("Kilidi Kaldır", role: .destructive) {
                     viewModel.unlockPlan()

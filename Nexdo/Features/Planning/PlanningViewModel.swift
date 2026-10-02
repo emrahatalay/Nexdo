@@ -83,7 +83,7 @@ final class PlanningViewModel {
     func refresh() {
         let allTasks = (try? modelContext.fetch(FetchDescriptor<TaskItem>())) ?? []
         inboxTasks = allTasks
-            .filter { $0.status == .inbox && $0.eisenhowerQuadrant == .unset }
+            .filter { ($0.status == .inbox || $0.status == .stopped) && $0.eisenhowerQuadrant == .unset }
             .sorted { $0.createdAt > $1.createdAt }
         tomorrowTasks = allTasks
             .filter { $0.status == .planned && $0.plannedDate == tomorrowDate }

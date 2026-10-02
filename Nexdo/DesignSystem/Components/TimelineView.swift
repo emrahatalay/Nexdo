@@ -16,7 +16,9 @@ struct TimelineBlock: Identifiable {
     let kind: Kind
 }
 
-struct TimelineView: View {
+/// SwiftUI'nin kendi `TimelineView`'i ile adı çakışmasın diye `ScheduleTimelineView` adı kullanılıyor
+/// (Focus Mode ve Menu Bar'daki canlı sayaç `TimelineView(.periodic...)` ile sürülüyor).
+struct ScheduleTimelineView: View {
     let blocks: [TimelineBlock]
 
     var body: some View {

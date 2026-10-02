@@ -29,4 +29,16 @@ final class FocusSession {
         self.endedAt = nil
         self.createdAt = .now
     }
+
+    /// Madde 15/39: her zaman duvar saatinden türetilir, asla sayaç azaltılarak değil.
+    /// Bu sayede sleep/wake veya app relaunch sonrası otomatik doğru sonuca "self-heal" eder.
+    func elapsedTime(at date: Date = .now) -> TimeInterval {
+        guard let startDate else { return 0 }
+        let activePauseOffset = (state == .paused) ? date.timeIntervalSince(pausedAt ?? date) : 0
+        return date.timeIntervalSince(startDate) - accumulatedPauseDuration - activePauseOffset
+    }
+
+    func remainingTime(at date: Date = .now) -> TimeInterval {
+        plannedDuration - elapsedTime(at: date)
+    }
 }

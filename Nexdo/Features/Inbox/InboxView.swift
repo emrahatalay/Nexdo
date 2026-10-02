@@ -11,8 +11,9 @@ struct InboxView: View {
 
     /// `TaskStatus` özel bir enum olduğundan `@Query(filter:)`'ın `#Predicate` makrosu
     /// karşılaştırmayı doğru genişletemiyor; bu yüzden filtre düz Swift closure'ı ile yapılıyor.
+    /// `.stopped` görevler de burada görünür (Madde 17: durdurulan işin yeniden planlanabilmesi gerekir).
     private var inboxTasks: [TaskItem] {
-        allTasks.filter { $0.status == .inbox }
+        allTasks.filter { $0.status == .inbox || $0.status == .stopped }
     }
 
     private var repository: TaskRepository {
@@ -34,8 +35,12 @@ struct InboxView: View {
                     ForEach(inboxTasks) { task in
                         HStack {
                             Text(task.title)
-                            if task.eisenhowerQuadrant != .unset {
-                                Spacer()
+                            Spacer()
+                            if task.status == .stopped {
+                                Text("Durduruldu")
+                                    .font(AppTypography.caption)
+                                    .foregroundStyle(.orange)
+                            } else if task.eisenhowerQuadrant != .unset {
                                 Text(task.eisenhowerQuadrant.actionTitle)
                                     .font(AppTypography.caption)
                                     .foregroundStyle(.secondary)

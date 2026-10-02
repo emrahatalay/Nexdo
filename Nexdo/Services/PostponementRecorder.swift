@@ -1,3 +1,4 @@
+import Foundation
 import SwiftData
 
 /// Madde 19: Today (başlamadan önce) ve Focus Mode (oturum sırasında "Şimdi yapamıyorum")

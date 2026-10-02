@@ -11,9 +11,7 @@ struct FocusView: View {
     private var timerService: FocusTimerService { AppEnvironment.shared.focusTimerService }
 
     var body: some View {
-        TimelineView(.periodic(from: .now, by: 1)) { context in
-            content(at: context.date)
-        }
+        content
         .sheet(isPresented: $showPostponeSheet) {
             if let task = timerService.activeSession?.task {
                 PostponeReasonSheet(task: task) { reason in
@@ -40,7 +38,8 @@ struct FocusView: View {
     }
 
     @ViewBuilder
-    private func content(at date: Date) -> some View {
+    private var content: some View {
+        let date = timerService.tickDate
         if let session = timerService.activeSession, let task = session.task {
             VStack(spacing: AppSpacing.large) {
                 Spacer()

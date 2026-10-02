@@ -44,7 +44,7 @@ struct TodayView: View {
                 VStack(alignment: .leading, spacing: AppSpacing.small) {
                     Text("ŞİMDİ")
                         .font(AppTypography.caption.bold())
-                        .foregroundStyle(.accentColor)
+                        .foregroundStyle(Color.accentColor)
 
                     Text(current.title)
                         .font(.largeTitle.bold())

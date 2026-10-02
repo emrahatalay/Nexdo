@@ -15,5 +15,12 @@ struct NexdoApp: App {
         Settings {
             SettingsView()
         }
+
+        MenuBarExtra {
+            MenuBarPopoverView()
+        } label: {
+            MenuBarLabelView()
+        }
+        .menuBarExtraStyle(.window)
     }
 }

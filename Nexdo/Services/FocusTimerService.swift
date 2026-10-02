@@ -14,6 +14,11 @@ final class FocusTimerService {
 
     private(set) var activeSession: FocusSession?
 
+    /// Saniyede bir güncellenir; View'lar canlı sayaç göstermek için `TimelineView` yerine
+    /// bunu okur (MenuBarExtra'nın durum çubuğu düğmesiyle `TimelineView` etkileşimi bir
+    /// güncelleme fırtınasına yol açıp uygulama açılışını kilitliyordu).
+    private(set) var tickDate: Date = .now
+
     init(modelContext: ModelContext) {
         self.modelContext = modelContext
         activeSession = Self.fetchResumableSession(in: modelContext)
@@ -88,9 +93,20 @@ final class FocusTimerService {
 
         if let task = session.task {
             task.actualDuration += session.elapsedTime(at: .now)
-            task.status = outcome == .completed ? .completed : .stopped
-            task.completedAt = outcome == .completed ? .now : nil
             task.updatedAt = .now
+
+            if outcome == .completed {
+                task.status = .completed
+                task.completedAt = .now
+            } else {
+                // Madde 17: "Kalan kısmı tekrar planlamak mümkün olur." Quadrant/schedule
+                // sıfırlanır ki Inbox ve Akşam Planı bu görevi yeniden triyaj için göstersin.
+                task.status = .stopped
+                task.eisenhowerQuadrant = .unset
+                task.plannedDate = nil
+                task.scheduledStart = nil
+                task.scheduledEnd = nil
+            }
         }
 
         activeSession = nil
@@ -103,6 +119,7 @@ final class FocusTimerService {
         expiryCheckTask = Task { [weak self] in
             while let self, !Task.isCancelled {
                 self.refreshExpiry()
+                self.tickDate = .now
                 try? await Task.sleep(for: .seconds(1))
             }
         }
