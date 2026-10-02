@@ -6,8 +6,19 @@
 	objectVersion = 110;
 	objects = {
 
+/* Begin PBXContainerItemProxy section */
+		B18910F0306FE48500B2D1E0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B1891072306FDE8400B2D1E0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B1891079306FDE8400B2D1E0;
+			remoteInfo = Nexdo;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		B189107A306FDE8400B2D1E0 /* Nexdo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nexdo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B18910EC306FE48500B2D1E0 /* NexdoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NexdoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -16,10 +27,20 @@
 			path = Nexdo;
 			sourceTree = "<group>";
 		};
+		B18910ED306FE48500B2D1E0 /* NexdoTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = NexdoTests;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		B1891077306FDE8400B2D1E0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+			);
+		};
+		B18910E9306FE48500B2D1E0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			files = (
 			);
@@ -31,6 +52,7 @@
 			isa = PBXGroup;
 			children = (
 				B189107C306FDE8400B2D1E0 /* Nexdo */,
+				B18910ED306FE48500B2D1E0 /* NexdoTests */,
 				B189107B306FDE8400B2D1E0 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -39,6 +61,7 @@
 			isa = PBXGroup;
 			children = (
 				B189107A306FDE8400B2D1E0 /* Nexdo.app */,
+				B18910EC306FE48500B2D1E0 /* NexdoTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -64,6 +87,27 @@
 			productReference = B189107A306FDE8400B2D1E0 /* Nexdo.app */;
 			productType = "com.apple.product-type.application";
 		};
+		B18910EB306FE48500B2D1E0 /* NexdoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B18910F2306FE48500B2D1E0 /* Build configuration list for PBXNativeTarget "NexdoTests" */;
+			buildPhases = (
+				B18910E8306FE48500B2D1E0 /* Sources */,
+				B18910E9306FE48500B2D1E0 /* Frameworks */,
+				B18910EA306FE48500B2D1E0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B18910F1306FE48500B2D1E0 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				B18910ED306FE48500B2D1E0 /* NexdoTests */,
+			);
+			name = NexdoTests;
+			productName = NexdoTests;
+			productReference = B18910EC306FE48500B2D1E0 /* NexdoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -76,6 +120,10 @@
 				TargetAttributes = {
 					B1891079306FDE8400B2D1E0 = {
 						CreatedOnToolsVersion = 27.0;
+					};
+					B18910EB306FE48500B2D1E0 = {
+						CreatedOnToolsVersion = 27.0;
+						TestTargetID = B1891079306FDE8400B2D1E0;
 					};
 				};
 			};
@@ -94,12 +142,18 @@
 			projectRoot = "";
 			targets = (
 				B1891079306FDE8400B2D1E0 /* Nexdo */,
+				B18910EB306FE48500B2D1E0 /* NexdoTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		B1891078306FDE8400B2D1E0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			files = (
+			);
+		};
+		B18910EA306FE48500B2D1E0 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			files = (
 			);
@@ -112,7 +166,20 @@
 			files = (
 			);
 		};
+		B18910E8306FE48500B2D1E0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+			);
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B18910F1306FE48500B2D1E0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B1891079306FDE8400B2D1E0 /* Nexdo */;
+			targetProxy = B18910F0306FE48500B2D1E0 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		B1891088306FDE8500B2D1E0 /* Debug configuration for PBXProject "Nexdo" */ = {
@@ -299,6 +366,56 @@
 			};
 			name = Release;
 		};
+		B18910F3306FE48500B2D1E0 /* Debug configuration for PBXNativeTarget "NexdoTests" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 27.0;
+				MACOSX_DEPLOYMENT_TARGET = 27.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.eatalaydev.Nexdo.NexdoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Nexdo.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Nexdo";
+				XROS_DEPLOYMENT_TARGET = 27.0;
+			};
+			name = Debug;
+		};
+		B18910F4306FE48500B2D1E0 /* Release configuration for PBXNativeTarget "NexdoTests" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 27.0;
+				MACOSX_DEPLOYMENT_TARGET = 27.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.eatalaydev.Nexdo.NexdoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Nexdo.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Nexdo";
+				XROS_DEPLOYMENT_TARGET = 27.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -315,6 +432,14 @@
 			buildConfigurations = (
 				B189108B306FDE8500B2D1E0 /* Debug configuration for PBXNativeTarget "Nexdo" */,
 				B189108C306FDE8500B2D1E0 /* Release configuration for PBXNativeTarget "Nexdo" */,
+			);
+			defaultConfigurationName = Release;
+		};
+		B18910F2306FE48500B2D1E0 /* Build configuration list for PBXNativeTarget "NexdoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B18910F3306FE48500B2D1E0 /* Debug configuration for PBXNativeTarget "NexdoTests" */,
+				B18910F4306FE48500B2D1E0 /* Release configuration for PBXNativeTarget "NexdoTests" */,
 			);
 			defaultConfigurationName = Release;
 		};
