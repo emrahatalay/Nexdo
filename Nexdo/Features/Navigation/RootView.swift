@@ -1,17 +1,22 @@
 import SwiftUI
 
 struct RootView: View {
-    @State private var selection: SidebarSection? = .today
+    @Bindable private var navigationState = AppEnvironment.shared.navigationState
+    @State private var columnVisibility: NavigationSplitViewVisibility = .all
 
     var body: some View {
-        NavigationSplitView {
-            List(SidebarSection.allCases, selection: $selection) { section in
+        NavigationSplitView(columnVisibility: $columnVisibility) {
+            List(SidebarSection.allCases, selection: $navigationState.selection) { section in
                 Label(section.title, systemImage: section.systemImage)
                     .tag(section)
             }
             .navigationTitle("Önce Ne, Sonra Ne Kadar")
         } detail: {
-            detailView(for: selection)
+            detailView(for: navigationState.selection)
+        }
+        .onChange(of: navigationState.selection) { _, newValue in
+            // Madde 14: Focus Mode'da sidebar dikkat dağıtmamalı.
+            columnVisibility = (newValue == .focus) ? .detailOnly : .all
         }
     }
 
