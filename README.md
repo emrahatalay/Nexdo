@@ -43,4 +43,4 @@ Requires Xcode with the macOS 27 SDK. Open `Nexdo.xcodeproj`, select the **Nexdo
 
 ---
 
-<sub>Made by **Emrah Atalay** at <a href="https://eatalay.dev/en">eatalay.dev</a>: mobile apps, games and automation, built with AI and finished by a human. Need an app like this? <a href="mailto:info@eatalay.dev">info@eatalay.dev</a></sub>
+<sub>Made by **Emrah Atalay** at <a href="https://eatalay.dev/en">eatalay.dev</a>: web and mobile apps, games and automation, built with AI and finished by a human. Need an app like this? <a href="mailto:info@eatalay.dev">info@eatalay.dev</a></sub>
